@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/8198645/wpf-combobox-performance-problems-by-binding-a-large-collections

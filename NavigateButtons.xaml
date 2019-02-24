@@ -1,0 +1,249 @@
+<UserControl x:Class="MaterialDesignColors.WpfExample.Lists"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:domain="clr-namespace:MaterialDesignColors.WpfExample.Domain"
+             xmlns:smtx="clr-namespace:ShowMeTheXAML;assembly=ShowMeTheXAML"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DoubleAnimation x:Key="OpacityInAnimation" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:1"/>
+            <DoubleAnimation x:Key="OpacityOutAnimation" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.5"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="8" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}">ListBox</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <smtx:XamlDisplay Key="lists_5" Grid.Row="5">
+                <Grid x:Name="_gridView">
+                    <ListView x:Name="LayoutRoot" ItemsSource="{Binding Items1}" Background="Red">
+                        <ListView.View >
+                            <GridView x:Name="_gv3">
+                                <GridViewColumn Header="Action Buttons">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button x:Name="ResizeButton" Height="0" Width="0" Content="E" Padding="0" 
+                                                        RenderTransformOrigin="0.5 0.5"
+                                                        />
+                                                <Button Width="20" Height="20" Content="R"/>
+                                                <Button Width="0" Height="00" Padding="0">
+                                                    <md:PackIcon Kind="Edit" Width="15" Height="15" Padding="0"
+                                                             x:Name="AnimatedWidthButton"
+                                                             />
+                                                </Button>
+                                            </StackPanel>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem}}" Value="True">
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="ResizeButton"
+                                                                    Storyboard.TargetProperty="(Button.Height)"
+                                                                    To="20" Duration="0:0:0.3"  />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="ResizeButton"
+                                                                    Storyboard.TargetProperty="(Button.Width)"
+                                                                    To="20" Duration="0:0:0.3"  />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.EnterActions>
+
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="ResizeButton"
+                                                                    Storyboard.TargetProperty="(Button.Height)"
+                                                                    To="0" Duration="0:0:0.3"  />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="ResizeButton"
+                                                                    Storyboard.TargetProperty="(Button.Width)"
+                                                                    To="0" Duration="0:0:0.3"  />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </DataTrigger.ExitActions>
+
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="Code" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description - very long header text" />
+                                <GridViewColumn DisplayMemberBinding="{Binding Description}">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="Description - very long header text2"
+                                                   TextWrapping="Wrap" FontWeight="Bold"
+                                                   HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Code Action - very long description header" >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Code}"/>
+                                                <Button x:Name="b4" Visibility="Visible" Opacity="0" Margin="10 0 10 0" Width="25" Height="25" Padding="0">
+                                                    <md:PackIcon Kind="Pencil" Height="10" Width="10" Padding="0"/>
+                                                </Button>
+                                                <Button x:Name="b3" Content="b3" Visibility="Visible" Opacity="0" Margin="10 0 10 0"/>
+                                                <Button x:Name="b2" Content="b2" Visibility="Visible" Margin="10 0 10 0"/>
+                                                <Button x:Name="b1" Content="A1" Visibility="Collapsed" Margin="10 0 10 0"/>
+                                                <Label  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    HorizontalContentAlignment="Center" 
+                                                    VerticalContentAlignment="Center" 
+                                                    Background="Red" Foreground="White"
+                                                     >
+                                                    <Label.Content >
+                                                        !
+                                                    </Label.Content>
+
+                                                    <Label.Style>
+                                                        <Style TargetType="{x:Type Label}">
+                                                            <Style.Resources>
+                                                                <Storyboard x:Key="flashAnimation" >
+                                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" AutoReverse="True" Duration="0:0:0.5" 
+                                                                                 RepeatBehavior="3x" />
+                                                                </Storyboard>
+                                                            </Style.Resources>
+
+                                                            <Setter Property="Visibility" Value="Hidden" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem}}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                    <DataTrigger.EnterActions>
+                                                                        <BeginStoryboard Name="flash" Storyboard="{StaticResource flashAnimation}" />
+                                                                    </DataTrigger.EnterActions>
+                                                                    <DataTrigger.ExitActions>
+                                                                        <StopStoryboard BeginStoryboardName="flash"/>
+                                                                    </DataTrigger.ExitActions>
+                                                                </DataTrigger>
+
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+
+                                                </Label>
+                                            </StackPanel>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ListViewItem}}" Value="True">
+                                                    <Setter TargetName="b1" Property="Visibility" Value="Visible"/>
+                                                    <DataTrigger.EnterActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="b3"
+                                                                To="1.0" Duration="0:0:1">
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+                                                        <BeginStoryboard>
+                                                            <Storyboard Storyboard.TargetName="b4">
+                                                                <StaticResource ResourceKey="OpacityInAnimation"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+
+                                                    </DataTrigger.EnterActions>
+                                                    <DataTrigger.ExitActions>
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="b3"
+                                                                To="0" Duration="0:0:0.5">
+                                                                </DoubleAnimation>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+                                                        <BeginStoryboard>
+                                                            <Storyboard  Storyboard.TargetName="b4">
+                                                                <StaticResource ResourceKey="OpacityOutAnimation"/>
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+
+                                                    </DataTrigger.ExitActions>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsMouseOver, ElementName=b1}" Value="True">
+                                                    <Setter TargetName="b1" Property="Foreground" Value="Red"/>
+                                                </DataTrigger>
+
+
+
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Padding="0" 
+                        Width="30" Height="30" 
+                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                        IsEnabled="{Binding IsMouseOver, ElementName=_gridView}"
+                        >
+                        <md:PackIcon Kind="Refresh" Width="30" Height="30" Padding="0"/>
+                    </Button>
+
+                </Grid>
+            </smtx:XamlDisplay>
+
+            <TextBlock 
+            Grid.Row="8"
+            Background="Yellow" Foreground="Blue" Text="{Binding IsMouseOver, ElementName=_gridView}"/>
+        </Grid>
+    </Grid>
+</UserControl>
+
